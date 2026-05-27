@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Major.Games — Domain for Sale</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    
+    <style>
+        * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at top, #1a1c3a, #05060c);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 520px;
+            width: 100%;
+            padding: 40px 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            backdrop-filter: blur(15px);
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .main-logo {
+            width: 100%;
+            max-width: 220px;
+            height: auto;
+            min-height: 50px; 
+            margin-bottom: 25px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            filter: drop-shadow(0 0 25px rgba(139, 92, 246, 0.3));
+            object-fit: contain;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 32px;
+            letter-spacing: 3px;
+            margin: 0 0 10px 0;
+            background: linear-gradient(to bottom, #fff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p { color: #b0b2d3; margin-bottom: 30px; font-size: 15px; line-height: 1.6; }
+
+        form { display: flex; flex-direction: column; gap: 15px; }
+
+        input, textarea {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        textarea { resize: none; }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+        }
+
+        button {
+            padding: 16px;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            color: white;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-top: 5px;
+        }
+
+        button:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(109, 40, 217, 0.4); }
+
+        .success { display: none; margin-top: 15px; color: #a78bfa; font-weight: 600; font-size: 14px; padding: 12px; border-radius: 10px; background: rgba(139, 92, 246, 0.1); border: 1px solid rgba(139, 92, 246, 0.2); }
+
+        .footer-text { margin-top: 24px; font-size: 11px; color: #5c5f8a; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="top-logo.png" alt="Major.Games" class="main-logo">
+    <h1>MAJOR.GAMES</h1>
+    <p>Premium domain for gaming and esports.<br>Open for acquisition offers.</p>
+
+    <form onsubmit='handleSubmit(event)'>
+        <input type="text" name="name" placeholder="Name / Organization" required>
+        <input type="email" name="email" placeholder="Your contact email" required inputmode="email">
+        <textarea name="message" placeholder="Price offer or inquiry details" rows="4" required></textarea>
+        <button type="submit">Make an Offer</button>
+    </form>
+
+    <div class="success" id="successMsg">✓ Your inquiry has been sent successfully</div>
+    <div class="footer-text">SERIOUS INQUIRIES ONLY</div>
+</div>
+
+<script>
+    function handleSubmit(e) {
+        e.preventDefault();
+        const form = e.target;
+        const btn = form.querySelector('button');
+
+        btn.disabled = true;
+        btn.innerText = "Sending...";
+
+        fetch("https://formspree.io/f/mnjroklb", {
+            method: "POST",
+            body: new FormData(form),
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then((response) => {
+            if (response.ok) {
+                form.style.display = "none";
+                document.getElementById("successMsg").style.display = "block";
+            } else {
+                throw new Error('Network response error');
+            }
+        })
+        .catch(() => {
+            alert("Error sending. Try again.");
+            btn.disabled = false;
+            btn.innerText = "Make an Offer";
+        });
+    }
+</script>
+</body>
+</html>
